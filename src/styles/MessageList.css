@@ -1,0 +1,14 @@
+.message-list {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+  
+  .empty-message-list {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 200px;
+    color: #757575;
+    font-style: italic;
+  }
