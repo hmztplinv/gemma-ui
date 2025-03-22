@@ -92,6 +92,11 @@ const styles = {
     color: '#333',
     fontWeight: '400'
   },
+  buttonsContainer: {
+    display: 'flex',
+    gap: '15px',
+    marginTop: '20px'
+  },
   editButton: {
     backgroundColor: '#2196f3',
     color: 'white',
@@ -100,7 +105,15 @@ const styles = {
     padding: '10px 20px',
     fontSize: '15px',
     cursor: 'pointer',
-    marginTop: '20px'
+  },
+  logoutButton: {
+    backgroundColor: '#f44336',
+    color: 'white',
+    border: 'none',
+    borderRadius: '4px',
+    padding: '10px 20px',
+    fontSize: '15px',
+    cursor: 'pointer',
   },
   statsContainer: {
     display: 'grid',
@@ -141,7 +154,7 @@ const styles = {
 };
 
 const ProfilePage = () => {
-  const { user } = useAuth();
+  const { user, logout } = useAuth();
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -176,6 +189,22 @@ const ProfilePage = () => {
     }, 800); // Simulating loading delay
   }, [user]);
 
+  const handleLogout = () => {
+    // Token'ı localStorage'dan sil
+    localStorage.removeItem('token');
+    // JWT veya başka token tipleri için de temizlik yapabilirsiniz
+    localStorage.removeItem('refreshToken');
+    sessionStorage.removeItem('userSession');
+    
+    // Auth context'teki logout fonksiyonunu çağır (varsa)
+    if (logout) {
+      logout();
+    }
+    
+    // Login sayfasına yönlendir
+    navigate('/login');
+  };
+
   if (isLoading) {
     return <div style={styles.loading}>Loading profile...</div>;
   }
@@ -192,7 +221,7 @@ const ProfilePage = () => {
           onClick={() => navigate('/dashboard')}
           style={styles.backButton}
         >
-          <span style={{ marginRight: '4px' }}>←</span> Dashboard'a Dön
+          <span style={{ marginRight: '4px' }}>←</span>Back Dashboard
         </button>
       </div>
 
@@ -230,7 +259,15 @@ const ProfilePage = () => {
               </div>
             </div>
             
-            <button style={styles.editButton}>Edit Profile</button>
+            <div style={styles.buttonsContainer}>
+              <button style={styles.editButton}>Edit Profile</button>
+              <button 
+                style={styles.logoutButton}
+                onClick={handleLogout}
+              >
+                Logout
+              </button>
+            </div>
           </div>
         </div>
       </div>

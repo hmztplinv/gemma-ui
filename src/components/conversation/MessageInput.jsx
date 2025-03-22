@@ -13,7 +13,7 @@ const MessageInput = ({ onSendMessage }) => {
     try {
       setIsSubmitting(true);
       await onSendMessage(message);
-      setMessage(' ');
+      setMessage('');
     } finally {
       setIsSubmitting(false);
     }
@@ -21,6 +21,7 @@ const MessageInput = ({ onSendMessage }) => {
 
   const handleKeyDown = (e) => {
     if (e.key === 'Enter' && !e.shiftKey) {
+      e.preventDefault(); // Formun otomatik gönderilmesini önle
       handleSubmit(e);
     }
   };

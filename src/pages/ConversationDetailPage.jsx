@@ -213,7 +213,7 @@ const ConversationDetailPage = () => {
         alignItems: 'center'
       }}
     >
-      {id === 'new' ? 'Cancel' : <><span style={{marginRight: '4px'}}>←</span> Dashboard'a Dön</>}
+      {id === 'new' ? 'Cancel' : <><span style={{marginRight: '4px'}}>←</span>Back Dashboard</>}
     </button>
   </div>
 </div>
