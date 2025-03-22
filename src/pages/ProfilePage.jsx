@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import userApi from '../api/userApi';
 import EditProfileModal from '../components/profile/EditProfileModal';
@@ -12,6 +12,7 @@ const ProfilePage = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
   const [showEditModal, setShowEditModal] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchProfileData = async () => {
@@ -38,6 +39,7 @@ const ProfilePage = () => {
 
   const handleLogout = () => {
     logout();
+    navigate('/login');
   };
 
   const handleEditProfile = () => {
@@ -56,6 +58,10 @@ const ProfilePage = () => {
       console.error('Error updating profile:', error);
       setError('Failed to update profile. Please try again.');
     }
+  };
+
+  const handleViewVocabulary = () => {
+    navigate('/vocabulary');
   };
 
   if (isLoading) {
@@ -115,17 +121,17 @@ const ProfilePage = () => {
           <div className="profile-details">
             <div className="profile-detail">
               <span className="detail-label">Native Language:</span>
-              <span className="detail-value">{displayProfile.nativeLanguage}</span>
+              <span className="detail-value">{displayProfile.nativeLanguage || 'Turkish'}</span>
             </div>
             
             <div className="profile-detail">
               <span className="detail-label">Learning Language:</span>
-              <span className="detail-value">{displayProfile.learningLanguage}</span>
+              <span className="detail-value">{displayProfile.learningLanguage || 'English'}</span>
             </div>
             
             <div className="profile-detail">
               <span className="detail-label">Proficiency Level:</span>
-              <span className="detail-value">{displayProfile.proficiencyLevel}</span>
+              <span className="detail-value">{displayProfile.languageLevel || 'Beginner'}</span>
             </div>
             
             <div className="profile-detail">
@@ -151,30 +157,30 @@ const ProfilePage = () => {
         
         <div className="stats-grid">
           <div className="stat-box">
-            <div className="stat-value">{displayStats.conversationsCount}</div>
+            <div className="stat-value">{displayStats.conversationsCount || 0}</div>
             <div className="stat-label">Conversations</div>
           </div>
           
           <div className="stat-box">
-            <div className="stat-value">{displayStats.messagesCount}</div>
+            <div className="stat-value">{displayStats.messagesCount || 0}</div>
             <div className="stat-label">Messages</div>
           </div>
           
           <div className="stat-box">
-            <div className="stat-value">{displayStats.vocabularyCount}</div>
+            <div className="stat-value">{displayStats.vocabularyCount || 0}</div>
             <div className="stat-label">Vocabulary Words</div>
           </div>
           
           <div className="stat-box">
-            <div className="stat-value">{displayStats.streakDays}</div>
+            <div className="stat-value">{displayStats.streakDays || 0}</div>
             <div className="stat-label">Days Active</div>
           </div>
         </div>
         
         <div className="view-more-section">
-          <Link to="/vocabulary" className="view-more-btn">
+          <button onClick={handleViewVocabulary} className="view-more-btn">
             View Vocabulary Details →
-          </Link>
+          </button>
         </div>
       </div>
       
