@@ -50,12 +50,15 @@ const ConversationsPage = () => {
   }
 
   return (
+    
     <div className="conversations-page">
+      
       <div className="conversations-header">
-        <h1>Your Conversations</h1>
+        <h1>Your Conversations </h1>
         <button className="new-conversation-btn" onClick={handleNewConversation}>
           New Conversation
         </button>
+        
       </div>
       
       <div className="conversations-list">
@@ -84,6 +87,7 @@ const ConversationsPage = () => {
         )}
       </div>
     </div>
+    
   );
 };
 

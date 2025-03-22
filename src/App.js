@@ -5,6 +5,7 @@ import { AuthProvider } from './context/AuthContext';
 // Sayfa bileşenlerini içe aktarın
 import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
+import DashboardPage from './pages/DashboardPage';
 import ConversationsPage from './pages/ConversationsPage';
 import ConversationDetailPage from './pages/ConversationDetailPage';
 import ProfilePage from './pages/ProfilePage';
@@ -29,6 +30,13 @@ function App() {
             <Route path="/login" element={<LoginPage />} />
             <Route path="/register" element={<RegisterPage />} />
             
+            {/* Dashboard route */}
+            <Route path="/dashboard" element={
+              <PrivateRoute>
+                <DashboardPage />
+              </PrivateRoute>
+            } />
+            
             {/* Protected routes */}
             <Route path="/conversations" element={
               <PrivateRoute>
@@ -51,7 +59,7 @@ function App() {
             {/* Redirect from home to conversation if logged in, otherwise to login */}
             <Route path="/" element={
               localStorage.getItem('token') 
-                ? <Navigate to="/conversation/new" /> 
+                ? <Navigate to="/dashboard" /> 
                 : <Navigate to="/login" />
             } />
             

@@ -13,7 +13,7 @@ const MessageInput = ({ onSendMessage }) => {
     try {
       setIsSubmitting(true);
       await onSendMessage(message);
-      setMessage('');
+      setMessage(' ');
     } finally {
       setIsSubmitting(false);
     }
