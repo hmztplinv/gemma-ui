@@ -1,0 +1,231 @@
+.profile-page {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 20px 16px;
+  }
+  
+  .profile-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
+  }
+  
+  .profile-header h1 {
+    margin: 0;
+    font-size: 1.8rem;
+  }
+  
+  .back-button {
+    background-color: #2196f3;
+    color: white;
+    border: none;
+    border-radius: 24px;
+    padding: 8px 16px;
+    font-size: 1rem;
+    text-decoration: none;
+    transition: background-color 0.2s;
+  }
+  
+  .back-button:hover {
+    background-color: #1976d2;
+    text-decoration: none;
+  }
+  
+  .profile-card {
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 24px;
+    margin-bottom: 24px;
+    display: flex;
+    align-items: flex-start;
+  }
+  
+  .profile-avatar {
+    margin-right: 24px;
+  }
+  
+  .avatar-circle {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    background-color: #2196f3;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: white;
+  }
+  
+  .profile-info {
+    flex: 1;
+  }
+  
+  .profile-info h2 {
+    margin: 0 0 4px 0;
+    font-size: 1.4rem;
+  }
+  
+  .profile-email {
+    color: #666;
+    margin: 0 0 16px 0;
+  }
+  
+  .profile-divider {
+    border: none;
+    border-top: 1px solid #eee;
+    margin: 16px 0;
+  }
+  
+  .profile-details {
+    margin-bottom: 24px;
+  }
+  
+  .profile-detail {
+    display: flex;
+    margin-bottom: 8px;
+  }
+  
+  .detail-label {
+    width: 150px;
+    font-weight: 500;
+    color: #555;
+  }
+  
+  .detail-value {
+    color: #333;
+  }
+  
+  .profile-actions {
+    display: flex;
+    gap: 12px;
+  }
+  
+  .edit-profile-btn, .logout-btn {
+    padding: 8px 16px;
+    border-radius: 4px;
+    font-size: 0.9rem;
+    cursor: pointer;
+    border: none;
+    transition: background-color 0.2s;
+  }
+  
+  .edit-profile-btn {
+    background-color: #2196f3;
+    color: white;
+  }
+  
+  .edit-profile-btn:hover {
+    background-color: #1976d2;
+  }
+  
+  .logout-btn {
+    background-color: #f44336;
+    color: white;
+  }
+  
+  .logout-btn:hover {
+    background-color: #d32f2f;
+  }
+  
+  .stats-card {
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 24px;
+  }
+  
+  .stats-card h2 {
+    margin: 0 0 24px 0;
+    font-size: 1.4rem;
+  }
+  
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+    margin-bottom: 24px;
+  }
+  
+  .stat-box {
+    background-color: #f5f5f5;
+    border-radius: 8px;
+    padding: 16px;
+    text-align: center;
+  }
+  
+  .stat-value {
+    font-size: 2rem;
+    font-weight: bold;
+    color: #2196f3;
+    margin-bottom: 8px;
+  }
+  
+  .stat-label {
+    color: #666;
+    font-size: 0.9rem;
+  }
+  
+  .view-more-section {
+    text-align: center;
+    margin-top: 16px;
+  }
+  
+  .view-more-btn {
+    display: inline-block;
+    padding: 8px 16px;
+    border-radius: 24px;
+    background-color: #f5f5f5;
+    color: #2196f3;
+    text-decoration: none;
+    font-weight: 500;
+    transition: background-color 0.2s;
+  }
+  
+  .view-more-btn:hover {
+    background-color: #e0e0e0;
+    text-decoration: none;
+  }
+  
+  .loading, .error {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 300px;
+    font-size: 1.2rem;
+    color: #555;
+  }
+  
+  .error {
+    color: #d32f2f;
+  }
+  
+  /* Responsive design */
+  @media (max-width: 768px) {
+    .profile-card {
+      flex-direction: column;
+      align-items: center;
+    }
+    
+    .profile-avatar {
+      margin-right: 0;
+      margin-bottom: 24px;
+    }
+    
+    .stats-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .profile-actions {
+      flex-direction: column;
+      width: 100%;
+    }
+    
+    .edit-profile-btn, .logout-btn {
+      width: 100%;
+    }
+  }
