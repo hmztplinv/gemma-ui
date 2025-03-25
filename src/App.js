@@ -12,6 +12,7 @@ import ProfilePage from './pages/ProfilePage';
 import NotFoundPage from './pages/NotFoundPage';
 import VocabularyPage from './pages/VocabularyPage';
 
+
 // Stil dosyası
 import './styles/App.css';
 
