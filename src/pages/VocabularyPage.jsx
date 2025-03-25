@@ -19,6 +19,16 @@ const VocabularyPage = () => {
 
   const levels = ['all', 'A1', 'A2', 'B1', 'B2', 'C1', 'C2'];
 
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 10;
+
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const currentItems = filteredVocabulary.slice(indexOfFirstItem, indexOfLastItem);
+  const totalPages = Math.ceil(filteredVocabulary.length / itemsPerPage);
+
+  const paginate = (pageNumber) => setCurrentPage(pageNumber);
+
   const handleUpdateWord = async (wordId, updateData) => {
     try {
       await UserApi.updateVocabularyItem(wordId, updateData);
@@ -64,6 +74,7 @@ const VocabularyPage = () => {
     }
 
     setFilteredVocabulary(result);
+    setCurrentPage(1); // Reset to first page when filters change
   }, [vocabulary, activeLevel, searchTerm]);
 
   if (loading) return <Spinner />;
@@ -135,31 +146,55 @@ const VocabularyPage = () => {
 
       {viewMode === 'list' ? (
         filteredVocabulary.length > 0 ? (
-          <div className="vocabulary-list">
-            <table>
-              <thead>
-                <tr>
-                  <th>Word</th>
-                  <th>Translation</th>
-                  <th>Level</th>
-                  <th>Encounters</th>
-                  <th>Correct Usage</th>
-                  <th>Last Seen</th>
-                  <th>Status</th>
-                  <th>Actions</th>
-                </tr>
-              </thead>
-              <tbody>
-                {filteredVocabulary.map(item => (
-                  <VocabularyItem
-                    key={item.id}
-                    word={item}
-                    onUpdate={handleUpdateWord}
-                  />
-                ))}
-              </tbody>
-            </table>
-          </div>
+          <>
+            <div className="vocabulary-list">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Word</th>
+                    <th>Translation</th>
+                    <th>Level</th>
+                    <th>Encounters</th>
+                    <th>Correct Usage</th>
+                    <th>Last Seen</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {currentItems.map(item => (
+                    <VocabularyItem
+                      key={item.id}
+                      word={item}
+                      onUpdate={handleUpdateWord}
+                    />
+                  ))}
+                </tbody>
+              </table>
+            </div>
+
+            <div className="pagination">
+              <button 
+                onClick={() => paginate(currentPage - 1)} 
+                disabled={currentPage === 1}
+                className="page-btn"
+              >
+                Previous
+              </button>
+              
+              <span className="page-info">
+                Page {currentPage} of {totalPages}
+              </span>
+              
+              <button 
+                onClick={() => paginate(currentPage + 1)} 
+                disabled={currentPage === totalPages}
+                className="page-btn"
+              >
+                Next
+              </button>
+            </div>
+          </>
         ) : (
           <div className="no-results">
             <p>No words matching these criteria were found.</p>
