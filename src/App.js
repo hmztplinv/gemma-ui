@@ -10,6 +10,7 @@ import ConversationsPage from './pages/ConversationsPage';
 import ConversationDetailPage from './pages/ConversationDetailPage';
 import ProfilePage from './pages/ProfilePage';
 import NotFoundPage from './pages/NotFoundPage';
+import VocabularyPage from './pages/VocabularyPage';
 
 // Stil dosyası
 import './styles/App.css';
@@ -29,40 +30,46 @@ function App() {
             {/* Public routes */}
             <Route path="/login" element={<LoginPage />} />
             <Route path="/register" element={<RegisterPage />} />
-            
+
             {/* Dashboard route */}
             <Route path="/dashboard" element={
               <PrivateRoute>
                 <DashboardPage />
               </PrivateRoute>
             } />
-            
+
             {/* Protected routes */}
             <Route path="/conversations" element={
               <PrivateRoute>
                 <ConversationsPage />
               </PrivateRoute>
             } />
-            
+
             <Route path="/conversation/:id" element={
               <PrivateRoute>
                 <ConversationDetailPage />
               </PrivateRoute>
             } />
-            
+
+            <Route path="/vocabulary" element={
+              <PrivateRoute>
+                <VocabularyPage />
+              </PrivateRoute>
+            } />
+
             <Route path="/profile" element={
               <PrivateRoute>
                 <ProfilePage />
               </PrivateRoute>
             } />
-            
+
             {/* Redirect from home to conversation if logged in, otherwise to login */}
             <Route path="/" element={
-              localStorage.getItem('token') 
-                ? <Navigate to="/dashboard" /> 
+              localStorage.getItem('token')
+                ? <Navigate to="/dashboard" />
                 : <Navigate to="/login" />
             } />
-            
+
             {/* Catch all route */}
             <Route path="*" element={<NotFoundPage />} />
           </Routes>
