@@ -11,7 +11,7 @@ import ConversationDetailPage from './pages/ConversationDetailPage';
 import ProfilePage from './pages/ProfilePage';
 import NotFoundPage from './pages/NotFoundPage';
 import VocabularyPage from './pages/VocabularyPage';
-
+import QuizPage from './pages/QuizPage';
 
 // Stil dosyası
 import './styles/App.css';
@@ -55,6 +55,12 @@ function App() {
             <Route path="/vocabulary" element={
               <PrivateRoute>
                 <VocabularyPage />
+              </PrivateRoute>
+            } />
+
+            <Route path="/quiz" element={
+              <PrivateRoute>
+                <QuizPage />
               </PrivateRoute>
             } />
 

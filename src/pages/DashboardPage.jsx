@@ -17,13 +17,7 @@ const DashboardPage = () => {
         <h2 className="section-title">Your Learning Activities</h2>
 
         <div className="activity-cards">
-          <Link to="/conversations" className="activity-card">
-            <div className="card-icon">💬</div>
-            <div className="card-content">
-              <h3>Conversations</h3>
-              <p>View your past conversations or start a new one</p>
-            </div>
-          </Link>
+          
 
           <Link to="/conversation/new" className="activity-card">
             <div className="card-icon">✏️</div>
@@ -33,19 +27,35 @@ const DashboardPage = () => {
             </div>
           </Link>
 
+          <Link to="/conversations" className="activity-card">
+            <div className="card-icon">💬</div>
+            <div className="card-content">
+              <h3>Conversations</h3>
+              <p>View your past conversations or start a new one</p>
+            </div>
+          </Link>
+
+          <Link to="/quiz" className="activity-card">
+            <div className="card-icon">🧠</div>
+            <div className="card-content">
+              <h3>Quiz</h3>
+              <p>Test your knowledge with interactive quizzes</p>
+            </div>
+          </Link>
+
+          <Link to="/vocabulary" className="activity-card">
+            <div className="card-icon">📖</div>
+            <div className="card-content">
+              <h3>My Vocabulary</h3>
+              <p>View and manage your vocabulary collection</p>
+            </div>
+          </Link>
+
           <Link to="/profile" className="activity-card">
             <div className="card-icon">👤</div>
             <div className="card-content">
               <h3>My Profile</h3>
               <p>View and manage your profile information</p>
-            </div>
-          </Link>
-
-          <Link to="/vocabulary" className="activity-card">
-          <div className="card-icon">📖</div>
-            <div className="card-content">
-              <h3>My Vocabulary</h3>
-              <p>View and manage your vocabulary collection</p>
             </div>
           </Link>
         </div>
