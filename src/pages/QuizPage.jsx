@@ -82,7 +82,7 @@ const QuizPage = () => {
   };
 
   if (loading) {
-    return <div className="loading">Quiz yükleniyor...</div>;
+    return <div className="loading">Quiz Prepare ...</div>;
   }
 
   if (error) {
