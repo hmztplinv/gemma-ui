@@ -198,7 +198,7 @@ const QuizHistoryPage = () => {
                 </div>
                 
                 <button 
-                  className="flex items-center text-blue-600 hover:text-blue-800"
+                  className="flex items-center rounded text-blue-600 hover:text-blue-800"
                   onClick={() => handleViewDetails(quiz.id)}
                 >
                   Details <ChevronRight size={16} />

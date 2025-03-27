@@ -21,20 +21,16 @@ const QuizPage = () => {
     const loadQuiz = async () => {
       try {
         setLoading(true);
-        // B1 seviyesinde bir kelime quizi oluştur
         const quizData = await fetchQuiz({ level: 'B1', quizType: 'Vocabulary' });
         setQuiz(quizData);
-        
-        // Seçilen cevaplar için başlangıç ​​değerlerini ayarla
         const initialAnswers = {};
         quizData.questions.forEach(question => {
           initialAnswers[question.id] = '';
         });
         setSelectedAnswers(initialAnswers);
-        
         setLoading(false);
       } catch (err) {
-        setError('Quiz yüklenirken bir hata oluştu. Lütfen daha sonra tekrar deneyin.');
+        setError('An error occurred while loading the quiz. Please try again later.');
         setLoading(false);
       }
     };
@@ -65,7 +61,6 @@ const QuizPage = () => {
 
   const handleSubmitQuiz = async () => {
     try {
-      // Cevapları gönderme formatına dönüştür
       const answers = Object.keys(selectedAnswers).map(questionId => ({
         questionId: parseInt(questionId, 10),
         answer: selectedAnswers[questionId]
@@ -76,7 +71,6 @@ const QuizPage = () => {
         answers: answers
       });
 
-      // Sonuç formatını genişlet
       const enhancedResult = {
         ...result,
         answers: quiz.questions.map(question => {
@@ -94,7 +88,7 @@ const QuizPage = () => {
       setQuizResult(enhancedResult);
       setShowResults(true);
     } catch (err) {
-      setError('Quiz gönderilirken bir hata oluştu. Lütfen tekrar deneyin.');
+      setError('An error occurred while submitting the quiz. Please try again.');
     }
   };
 
@@ -105,16 +99,16 @@ const QuizPage = () => {
   };
   
   const getScoreText = (score) => {
-    if (score >= 80) return 'Mükemmel!';
-    if (score >= 60) return 'İyi iş!';
-    if (score >= 40) return 'Fena değil!';
-    return 'Daha fazla çalışmalısın!';
+    if (score >= 80) return 'Excellent!';
+    if (score >= 60) return 'Good job!';
+    if (score >= 40) return 'Not bad!';
+    return 'You need more practice!';
   };
   
   const getProgressTips = (score) => {
-    if (score >= 80) return 'Bir sonraki seviyeye geçmeye hazırsın!';
-    if (score >= 60) return 'Doğru cevaplarını pekiştirmek için tekrar yapabilirsin.';
-    return 'Yanlış cevapladığın kelimeleri tekrar çalışmanı öneririz.';
+    if (score >= 80) return 'You are ready to move to the next level!';
+    if (score >= 60) return 'You can repeat to reinforce your correct answers.';
+    return 'We recommend studying the words you answered incorrectly.';
   };
 
   const handleGoToDashboard = () => {
@@ -126,14 +120,12 @@ const QuizPage = () => {
   };
 
   const handleStudyMistakes = () => {
-    // İleriki aşamada implement edilecek
-    // Yanlış cevaplanan soruları çalışma sayfasına yönlendir
-    console.log("Yanlışları çalış", quizResult.answers.filter(a => !a.isCorrect));
-    alert("Bu özellik henüz geliştirilme aşamasındadır.");
+    console.log("Study mistakes", quizResult.answers.filter(a => !a.isCorrect));
+    alert("This feature is under development.");
   };
 
   if (loading) {
-    return <div className="loading">Quiz Prepare ...</div>;
+    return <div className="loading">Preparing Quiz ...</div>;
   }
 
   if (error) {
@@ -141,7 +133,7 @@ const QuizPage = () => {
       <div className="error-container">
         <div className="error-message">{error}</div>
         <button className="back-button" onClick={() => navigate('/dashboard')}>
-          Panele Dön
+          Back to Dashboard
         </button>
       </div>
     );
@@ -150,9 +142,9 @@ const QuizPage = () => {
   if (!quiz || !quiz.questions || quiz.questions.length === 0) {
     return (
       <div className="error-container">
-        <div className="info-message">Şu anda quiz hazır değil. Lütfen daha sonra tekrar deneyin.</div>
+        <div className="info-message">No quiz available right now. Please try again later.</div>
         <button className="back-button" onClick={() => navigate('/dashboard')}>
-          Panele Dön
+          Back to Dashboard
         </button>
       </div>
     );
@@ -162,13 +154,11 @@ const QuizPage = () => {
   const isAnswered = !!selectedAnswers[currentQuestion.id];
   const isLastQuestion = currentQuestionIndex === quiz.questions.length - 1;
 
-  // Geliştirilmiş Quiz sonuç ekranı
   if (showResults && quizResult) {
     return (
       <div className="w-full max-w-2xl mx-auto p-6 bg-white rounded-lg shadow-lg">
-        <h1 className="text-2xl font-bold text-center mb-6">Quiz Sonuçları</h1>
+        <h1 className="text-2xl font-bold text-center mb-6">Quiz Results</h1>
         
-        {/* Skor göstergesi */}
         <div className={`p-8 rounded-lg text-center mb-6 ${getScoreColor(quizResult.score)}`}>
           <div className="relative">
             <div className="flex justify-center mb-4">
@@ -179,46 +169,43 @@ const QuizPage = () => {
           </div>
         </div>
         
-        {/* Quiz bilgileri */}
         <div className="bg-gray-50 rounded-lg p-4 mb-6">
           <div className="grid grid-cols-2 gap-2 mb-2">
             <div className="text-gray-600">Quiz:</div>
             <div className="font-medium text-right">{quizResult.quizTitle}</div>
           </div>
           <div className="grid grid-cols-2 gap-2 mb-2">
-            <div className="text-gray-600">Seviye:</div>
+            <div className="text-gray-600">Level:</div>
             <div className="font-medium text-right">{quizResult.quizLevel}</div>
           </div>
           <div className="grid grid-cols-2 gap-2 mb-2">
-            <div className="text-gray-600">Doğru Cevaplar:</div>
+            <div className="text-gray-600">Correct Answers:</div>
             <div className="font-medium text-right">{quizResult.correctAnswers} / {quizResult.totalQuestions}</div>
           </div>
           <div className="grid grid-cols-2 gap-2">
-            <div className="text-gray-600">Tamamlanma:</div>
-            <div className="font-medium text-right">{new Date(quizResult.completedAt).toLocaleString('tr-TR')}</div>
+            <div className="text-gray-600">Completed:</div>
+            <div className="font-medium text-right">{new Date(quizResult.completedAt).toLocaleString('en-US')}</div>
           </div>
         </div>
         
-        {/* İlerleme önerileri */}
         <div className="bg-blue-50 text-blue-800 p-4 rounded-lg mb-6">
           <div className="flex items-start">
             <div className="flex-shrink-0 mt-0.5">
               <BarChart2 size={20} />
             </div>
             <div className="ml-3">
-              <h3 className="font-medium">İlerleme İpucu</h3>
+              <h3 className="font-medium">Progress Tip</h3>
               <p className="mt-1 text-sm">{getProgressTips(quizResult.score)}</p>
             </div>
           </div>
         </div>
         
-        {/* Detaylı sonuçlar açılır paneli */}
         <div className="mb-6">
           <button 
             onClick={() => setShowResultDetails(!showResultDetails)}
             className="w-full flex justify-between items-center p-3 bg-gray-100 hover:bg-gray-200 rounded-lg focus:outline-none"
           >
-            <span className="font-medium">Detaylı Sonuçlar</span>
+            <span className="font-medium">Detailed Results</span>
             <span>{showResultDetails ? '▲' : '▼'}</span>
           </button>
           
@@ -234,11 +221,11 @@ const QuizPage = () => {
                     <div>
                       <p className="font-medium">{answer.question}</p>
                       <p className={`text-sm mt-1 ${answer.isCorrect ? 'text-green-600' : 'text-red-600'}`}>
-                        Cevabın: {answer.userAnswer}
+                        Your answer: {answer.userAnswer}
                       </p>
                       {!answer.isCorrect && (
                         <p className="text-sm mt-1 text-gray-600">
-                          Doğru cevap: {answer.correctAnswer}
+                          Correct answer: {answer.correctAnswer}
                         </p>
                       )}
                     </div>
@@ -249,14 +236,13 @@ const QuizPage = () => {
           )}
         </div>
         
-        {/* Aksiyon butonları */}
         <div className="flex flex-col sm:flex-row sm:justify-between gap-3">
           <button 
             onClick={handleGoToDashboard}
             className="flex items-center justify-center py-2 px-4 bg-gray-100 hover:bg-gray-200 rounded-lg"
           >
             <ChevronLeft size={18} className="mr-1" />
-            Panele Dön
+            Back to Dashboard
           </button>
           
           <div className="flex flex-col sm:flex-row gap-3">
@@ -265,7 +251,7 @@ const QuizPage = () => {
               className="flex items-center justify-center py-2 px-4 bg-amber-500 text-white hover:bg-amber-600 rounded-lg"
             >
               <Bookmark size={18} className="mr-1" />
-              Yanlışları Çalış
+              Study Mistakes
             </button>
             
             <button 
@@ -273,7 +259,7 @@ const QuizPage = () => {
               className="flex items-center justify-center py-2 px-4 bg-blue-500 text-white hover:bg-blue-600 rounded-lg"
             >
               <RefreshCw size={18} className="mr-1" />
-              Yeni Quiz Başlat
+              Start New Quiz
             </button>
           </div>
         </div>
@@ -281,12 +267,11 @@ const QuizPage = () => {
     );
   }
 
-  // Quiz sorularını gösterme ekranı
   return (
     <div className="quiz-page">
       <div className="quiz-header">
-        <h1>{quiz.title || 'Kelime Bilgisi Testi'}</h1>
-        <div className="quiz-subtitle">Seviye: {quiz.level} | Soru {currentQuestionIndex + 1} / {quiz.questions.length}</div>
+        <h1>{quiz.title || 'Vocabulary Test'}</h1>
+        <div className="quiz-subtitle">Level: {quiz.level} | Question {currentQuestionIndex + 1} / {quiz.questions.length}</div>
       </div>
       
       <div className="question-container">
@@ -325,7 +310,7 @@ const QuizPage = () => {
           onClick={handlePreviousQuestion}
           disabled={currentQuestionIndex === 0}
         >
-          Önceki
+          Previous
         </button>
         
         {isLastQuestion && quizCompleted ? (
@@ -334,7 +319,7 @@ const QuizPage = () => {
             onClick={handleSubmitQuiz}
             disabled={Object.values(selectedAnswers).some(answer => !answer)}
           >
-            Quiz'i Tamamla
+            Submit Quiz
           </button>
         ) : (
           <button 
@@ -342,7 +327,7 @@ const QuizPage = () => {
             onClick={handleNextQuestion}
             disabled={!isAnswered}
           >
-            {isLastQuestion ? 'Son Soruya Geldin' : 'Sonraki'}
+            {isLastQuestion ? 'Last Question' : 'Next'}
           </button>
         )}
       </div>
@@ -352,7 +337,7 @@ const QuizPage = () => {
           className="cancel-button" 
           onClick={() => navigate('/dashboard')}
         >
-          İptal Et
+          Cancel
         </button>
         
         {Object.keys(selectedAnswers).length === quiz.questions.length && 
@@ -361,7 +346,7 @@ const QuizPage = () => {
             className="submit-button" 
             onClick={handleSubmitQuiz}
           >
-            Tüm Cevapları Gönder
+            Submit All Answers
           </button>
         )}
       </div>
