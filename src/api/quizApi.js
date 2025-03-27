@@ -100,3 +100,22 @@ export const fetchQuizResults = async () => {
     throw error;
   }
 };
+
+/**
+ * Fetch detailed quiz result by ID
+ * @param {number} resultId - ID of the quiz result
+ * @returns {Promise<Object>} - Promise that resolves to a detailed quiz result object
+ */
+export const fetchQuizResultById = async (resultId) => {
+  try {
+    const response = await axios.get(`${API_ENDPOINT}/results/${resultId}`, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('token')}`
+      }
+    });
+    return response.data;
+  } catch (error) {
+    console.error('Error fetching quiz result:', error);
+    throw error;
+  }
+};

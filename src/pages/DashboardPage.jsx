@@ -43,6 +43,14 @@ const DashboardPage = () => {
             </div>
           </Link>
 
+          <Link to="/quiz/history" className="activity-card">
+          <div className="card-icon">📜</div>
+            <div className="card-content">
+              <h3>Quiz History</h3>
+              <p>Check your history of quizzes</p>
+            </div>
+          </Link>
+
           <Link to="/vocabulary" className="activity-card">
             <div className="card-icon">📖</div>
             <div className="card-content">

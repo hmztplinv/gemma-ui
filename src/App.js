@@ -12,6 +12,7 @@ import ProfilePage from './pages/ProfilePage';
 import NotFoundPage from './pages/NotFoundPage';
 import VocabularyPage from './pages/VocabularyPage';
 import QuizPage from './pages/QuizPage';
+import QuizHistoryPage from './pages/QuizHistoryPage';
 
 // Stil dosyası
 import './styles/App.css';
@@ -61,6 +62,13 @@ function App() {
             <Route path="/quiz" element={
               <PrivateRoute>
                 <QuizPage />
+              </PrivateRoute>
+            } />
+
+            {/* Yeni eklenen quiz geçmişi rotası */}
+            <Route path="/quiz/history" element={
+              <PrivateRoute>
+                <QuizHistoryPage />
               </PrivateRoute>
             } />
 
