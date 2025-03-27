@@ -2,7 +2,7 @@ import React from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { AuthProvider } from './context/AuthContext';
 
-// Sayfa bileşenlerini içe aktarın
+// Page components import
 import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
 import DashboardPage from './pages/DashboardPage';
@@ -13,11 +13,12 @@ import NotFoundPage from './pages/NotFoundPage';
 import VocabularyPage from './pages/VocabularyPage';
 import QuizPage from './pages/QuizPage';
 import QuizHistoryPage from './pages/QuizHistoryPage';
+import QuizResultPage from './pages/QuizResultPage';
 
-// Stil dosyası
+// Style file
 import './styles/App.css';
 
-// Auth kontrolü için özel bir route bileşeni
+// Auth control custom route component
 const PrivateRoute = ({ children }) => {
   const token = localStorage.getItem('token');
   return token ? children : <Navigate to="/login" />;
@@ -65,10 +66,17 @@ function App() {
               </PrivateRoute>
             } />
 
-            {/* Yeni eklenen quiz geçmişi rotası */}
+            {/* Quiz history route */}
             <Route path="/quiz/history" element={
               <PrivateRoute>
                 <QuizHistoryPage />
+              </PrivateRoute>
+            } />
+
+            {/* Add quiz result detail route */}
+            <Route path="/quiz/results/:id" element={
+              <PrivateRoute>
+                <QuizResultPage />
               </PrivateRoute>
             } />
 

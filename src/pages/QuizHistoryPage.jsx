@@ -21,7 +21,7 @@ const QuizHistoryPage = () => {
         setQuizHistory(results);
         setLoading(false);
       } catch (err) {
-        setError('Quiz geçmişi yüklenirken bir hata oluştu.');
+        setError('Error loading quiz history.');
         setLoading(false);
       }
     };
@@ -29,7 +29,7 @@ const QuizHistoryPage = () => {
     loadQuizHistory();
   }, []);
 
-  // Filtreleme işlemleri
+  // Filtering operations
   const filteredHistory = quizHistory.filter(quiz => {
     const matchesSearch = quiz.quizTitle.toLowerCase().includes(searchTerm.toLowerCase());
     const matchesLevel = selectedLevel === 'all' || quiz.quizLevel === selectedLevel;
@@ -44,17 +44,17 @@ const QuizHistoryPage = () => {
   
   const formatDate = (dateString) => {
     const date = new Date(dateString);
-    return date.toLocaleDateString('tr-TR');
+    return date.toLocaleDateString('en-US');
   };
   
-  // Quiz başına ortalama skor hesaplama
+  // Calculate average score per quiz
   const calculateAverageScore = () => {
     if (quizHistory.length === 0) return 0;
     const totalScore = quizHistory.reduce((sum, quiz) => sum + quiz.score, 0);
     return Math.round(totalScore / quizHistory.length);
   };
   
-  // Seviye bazında quiz sayıları
+  // Quiz counts by level
   const getLevelCounts = () => {
     const counts = quizHistory.reduce((acc, quiz) => {
       acc[quiz.quizLevel] = (acc[quiz.quizLevel] || 0) + 1;
@@ -66,12 +66,12 @@ const QuizHistoryPage = () => {
   const levelCounts = getLevelCounts();
 
   const handleViewDetails = (quizId) => {
-    // Quiz detaylarını görüntüleme için ilgili rotaya yönlendir
+    // Navigate to quiz details page with the specific ID
     navigate(`/quiz/results/${quizId}`);
   };
 
   if (loading) {
-    return <div className="loading">Quiz geçmişi yükleniyor...</div>;
+    return <div className="loading">Loading quiz history...</div>;
   }
 
   if (error) {
@@ -79,7 +79,7 @@ const QuizHistoryPage = () => {
       <div className="error-container">
         <div className="error-message">{error}</div>
         <button className="back-button" onClick={() => navigate('/dashboard')}>
-          Panele Dön
+          Back to Dashboard
         </button>
       </div>
     );
@@ -87,14 +87,14 @@ const QuizHistoryPage = () => {
 
   return (
     <div className="w-full max-w-4xl mx-auto p-6">
-      <h1 className="text-2xl font-bold mb-6">Quiz Geçmişim</h1>
+      <h1 className="text-2xl font-bold mb-6">Quiz History</h1>
       
-      {/* Özet istatistikler */}
+      {/* Summary statistics */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
         <div className="bg-white p-4 rounded-lg shadow">
           <div className="flex items-center mb-2">
             <Award className="text-blue-500 mr-2" size={20} />
-            <h3 className="font-medium">Toplam Quiz</h3>
+            <h3 className="font-medium">Total Quizzes</h3>
           </div>
           <p className="text-2xl font-bold">{quizHistory.length}</p>
         </div>
@@ -102,7 +102,7 @@ const QuizHistoryPage = () => {
         <div className="bg-white p-4 rounded-lg shadow">
           <div className="flex items-center mb-2">
             <BarChart2 className="text-green-500 mr-2" size={20} />
-            <h3 className="font-medium">Ortalama Skor</h3>
+            <h3 className="font-medium">Average Score</h3>
           </div>
           <p className="text-2xl font-bold">{calculateAverageScore()}%</p>
         </div>
@@ -110,13 +110,13 @@ const QuizHistoryPage = () => {
         <div className="bg-white p-4 rounded-lg shadow">
           <div className="flex items-center mb-2">
             <Calendar className="text-purple-500 mr-2" size={20} />
-            <h3 className="font-medium">Son Quiz</h3>
+            <h3 className="font-medium">Last Quiz</h3>
           </div>
           <p className="text-2xl font-bold">{quizHistory.length > 0 ? formatDate(quizHistory[0].completedAt) : '-'}</p>
         </div>
       </div>
       
-      {/* Filtreleme araçları */}
+      {/* Filtering tools */}
       <div className="bg-white p-4 rounded-lg shadow mb-6">
         <div className="flex flex-col md:flex-row gap-4">
           <div className="flex-1">
@@ -126,7 +126,7 @@ const QuizHistoryPage = () => {
               </div>
               <input
                 type="text"
-                placeholder="Quiz ara..."
+                placeholder="Search quizzes..."
                 className="pl-10 pr-4 py-2 w-full border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
@@ -144,7 +144,7 @@ const QuizHistoryPage = () => {
                 value={selectedLevel}
                 onChange={(e) => setSelectedLevel(e.target.value)}
               >
-                <option value="all">Tüm Seviyeler</option>
+                <option value="all">All Levels</option>
                 <option value="A1">A1</option>
                 <option value="A2">A2</option>
                 <option value="B1">B1</option>
@@ -156,7 +156,7 @@ const QuizHistoryPage = () => {
           </div>
         </div>
         
-        {/* Seviye bazlı istatistikler */}
+        {/* Level-based statistics */}
         <div className="mt-4 flex flex-wrap gap-2">
           {Object.entries(levelCounts).map(([level, count]) => (
             <span 
@@ -166,13 +166,13 @@ const QuizHistoryPage = () => {
               onClick={() => setSelectedLevel(level === selectedLevel ? 'all' : level)}
               style={{cursor: 'pointer'}}
             >
-              {level}: {count} quiz
+              {level}: {count} quizzes
             </span>
           ))}
         </div>
       </div>
       
-      {/* Quiz listesi */}
+      {/* Quiz list */}
       {filteredHistory.length > 0 ? (
         <div className="bg-white rounded-lg shadow overflow-hidden">
           {filteredHistory.map((quiz, index) => (
@@ -201,7 +201,7 @@ const QuizHistoryPage = () => {
                   className="flex items-center text-blue-600 hover:text-blue-800"
                   onClick={() => handleViewDetails(quiz.id)}
                 >
-                  Detaylar <ChevronRight size={16} />
+                  Details <ChevronRight size={16} />
                 </button>
               </div>
             </div>
@@ -209,7 +209,7 @@ const QuizHistoryPage = () => {
         </div>
       ) : (
         <div className="bg-white p-8 rounded-lg shadow text-center">
-          <p className="text-gray-500">Arama kriterlerinize uygun quiz bulunamadı.</p>
+          <p className="text-gray-500">No quizzes found matching your search criteria.</p>
         </div>
       )}
     </div>
@@ -217,3 +217,6 @@ const QuizHistoryPage = () => {
 };
 
 export default QuizHistoryPage;
+
+
+
