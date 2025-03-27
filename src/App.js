@@ -14,6 +14,10 @@ import VocabularyPage from './pages/VocabularyPage';
 import QuizPage from './pages/QuizPage';
 import QuizHistoryPage from './pages/QuizHistoryPage';
 import QuizResultPage from './pages/QuizResultPage';
+import ErrorAnalysisPage from './pages/ErrorAnalysisPage';
+import ProgressGraphsPage from './pages/ProgressGraphsPage';
+import GoalsPage from './pages/GoalsPage';
+import BadgesPage from './pages/BadgesPage';
 
 // Style file
 import './styles/App.css';
@@ -77,6 +81,31 @@ function App() {
             <Route path="/quiz/results/:id" element={
               <PrivateRoute>
                 <QuizResultPage />
+              </PrivateRoute>
+            } />
+
+            {/* New feature routes */}
+            <Route path="/error-analysis" element={
+              <PrivateRoute>
+                <ErrorAnalysisPage />
+              </PrivateRoute>
+            } />
+
+            <Route path="/progress" element={
+              <PrivateRoute>
+                <ProgressGraphsPage />
+              </PrivateRoute>
+            } />
+
+            <Route path="/goals" element={
+              <PrivateRoute>
+                <GoalsPage />
+              </PrivateRoute>
+            } />
+
+            <Route path="/badges" element={
+              <PrivateRoute>
+                <BadgesPage />
               </PrivateRoute>
             } />
 

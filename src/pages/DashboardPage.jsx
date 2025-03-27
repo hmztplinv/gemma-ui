@@ -58,7 +58,37 @@ const DashboardPage = () => {
               <p>View and manage your vocabulary collection</p>
             </div>
           </Link>
+          <Link to="/error-analysis" className="activity-card">
+  <div className="card-icon">📊</div>
+  <div className="card-content">
+    <h3>Error Analysis</h3>
+    <p>View detailed analysis of your language errors</p>
+  </div>
+</Link>
 
+<Link to="/progress" className="activity-card">
+  <div className="card-icon">📈</div>
+  <div className="card-content">
+    <h3>Progress Graphs</h3>
+    <p>Track your learning progress over time</p>
+  </div>
+</Link>
+
+<Link to="/goals" className="activity-card">
+  <div className="card-icon">🎯</div>
+  <div className="card-content">
+    <h3>Goals & Tasks</h3>
+    <p>Set and track your language learning goals</p>
+  </div>
+</Link>
+
+<Link to="/badges" className="activity-card">
+  <div className="card-icon">🏆</div>
+  <div className="card-content">
+    <h3>Badges & Rewards</h3>
+    <p>View your achievements and rewards</p>
+  </div>
+</Link>
           <Link to="/profile" className="activity-card">
             <div className="card-icon">👤</div>
             <div className="card-content">
