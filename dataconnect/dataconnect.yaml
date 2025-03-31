@@ -1,0 +1,12 @@
+specVersion: "v1"
+serviceId: "y"
+location: "us-central1"
+schema:
+  source: "./schema"
+  datasource:
+    postgresql:
+      database: "LanguageLearningApp"
+      cloudSql:
+        instanceId: "language-learning-db"
+      # schemaValidation: "COMPATIBLE"
+connectorDirs: ["./connector"]

@@ -1,5 +1,5 @@
 import axios from 'axios';
-const API_URL = 'http://localhost:5130/api';
+const API_URL = 'https://language-learning-api-901882410812.us-central1.run.app/api';
 const API_ENDPOINT = `${API_URL}/quiz`;
 
 /**
