@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_URL = 'http://localhost:5130/api'; // API URL'nizi güncelleyin
+const API_URL = 'https://language-learning-api-901882410812.us-central1.run.app/api'; // API URL'nizi güncelleyin
 
 // Axios instance oluşturma
 const axiosInstance = axios.create({
